@@ -1,11 +1,11 @@
-<section class="page-header">
+<section class="page-header-compra">
     <div class="overly"></div>   
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-lg-6">
           <div class="content text-center">
             <h1 class="mb-3">Producto</h1>
-            <p>Hath after appear tree great fruitful green dominion moveth sixth abundantly image that midst of god day multiply you’ll which</p>
+            <p>Elige algun producto!</p>
           <nav aria-label="breadcrumb">
             <ol class="breadcrumb bg-transparent justify-content-center">
               <li class="breadcrumb-item"><a routerLink="/">Inicio</a></li>
@@ -57,14 +57,13 @@
             </div>
             <hr>
             
-            <h3 class="product-price">${{x.precioPro}} <del>$119.90</del></h3>
+            <h3 class="product-price">${{x.precioPro}} <!--<del>$119.90</del>--></h3>
             
-            <form class="cart" action="#" method="post">
+           
               <div class="quantity d-flex align-items-center">
-                <input type="number" id="#" class="input-text qty text form-control w-25 mr-3" step="1" min="1" max="9" name="quantity" value="1" title="Qty" size="4" >
-                <button type="button" class="btn btn-main btn-small" (click)="addToCart(x)">Add to cart</button>
+                <input type="number" class="input-text qty text form-control w-25 mr-3" [(ngModel)]="cantidadProducto" size="4" >
+                <button type="button" class="btn btn-main btn-small" (click)="addToCart(x,cantidadProducto)">Agregar al carrito</button>
               </div>
-            </form>
             
             
             <div class="products-meta mt-4">
@@ -178,17 +177,17 @@
       <div class="row justify-content-center">
         <div class="col-lg-6">
           <div class="title text-center">
-            <h2>You may like this</h2>
-            <p>The best Online sales to shop these weekend</p>
+            <h2>Te puede gustar esto</h2>
+            <p>Las mejores Ventas Online para comprar este fin de semana</p>
           </div>
         </div>
       </div>
       <div class="row">
-         <div class="col-lg-3 col-6" >
+         <div class="col-lg-3 col-6" *ngFor="let x of objProductSimilar">
               <div class="product">
             <div class="product-wrap">
-              <a routerLink="/product-single"><img class="img-fluid w-100 mb-3 img-first" src="assets/images/322.jpg" alt="product-img" /></a>
-              <a routerLink="/product-single"><img class="img-fluid w-100 mb-3 img-second" src="assets/images/444.jpg" alt="product-img" /></a>
+              <a [routerLink]="['/product-single',x.codProducto]"><img class="img-fluid w-100 mb-3 img-first" src="{{x.imagenPro}}" alt="product-img" /></a>
+              <a [routerLink]="['/product-single',x.codProducto]"><img class="img-fluid w-100 mb-3 img-second" src="{{x.imagenPro}}" alt="product-img" /></a>
             </div>
             <span class="onsale">Sale</span>
             <div class="product-hover-overlay">
@@ -196,14 +195,14 @@
               <a href="#"><i class="tf-ion-ios-heart"></i></a>
                 </div>
             <div class="product-info">
-              <h2 class="product-title h5 mb-0"><a routerLink="/product-single">Kirby Shirt</a></h2>
+              <h2 class="product-title h5 mb-0"><a [routerLink]="['/product-single',x.codProducto]">{{x.nombre}}</a></h2>
               <span class="price">
-                $329.10
+                ${{x.precioPro}}
               </span>
             </div>
           </div>
            </div>
-        <div class="col-lg-3 col-6" >
+        <!--<div class="col-lg-3 col-6" >
               <div class="product">
             <div class="product-wrap">
               <a routerLink="/product-single"><img class="img-fluid w-100 mb-3 img-first" src="assets/images/111.jpg" alt="product-img" /></a>
@@ -259,7 +258,7 @@
               </span>
             </div>
           </div>
-           </div>
+           </div>-->
       </div>
     </div>
   </section>

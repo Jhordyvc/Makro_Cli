@@ -23,6 +23,9 @@ import { EditAddressComponent } from './edit-address/edit-address.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
 import { CarritoComponent } from './carrito/carrito.component';
+import { FormsModule }   from '@angular/forms';
+import { OrdenDetailsComponent } from './orden-details/orden-details.component';
+import { CompraComponent } from './compra/compra.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +45,9 @@ import { CarritoComponent } from './carrito/carrito.component';
     ProfileDetailsComponent,
     AddressComponent,
     EditAddressComponent,
-    CarritoComponent
+    CarritoComponent,
+    OrdenDetailsComponent,
+    CompraComponent
   ],
   imports: [
     BrowserModule,
@@ -50,6 +55,7 @@ import { CarritoComponent } from './carrito/carrito.component';
     SlickCarouselModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    FormsModule,
     ToastrModule.forRoot()
   ],
   providers: [],

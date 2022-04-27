@@ -13,6 +13,7 @@ import { ProfileDetailsComponent } from './profile-details/profile-details.compo
 import { AddressComponent } from './address/address.component';
 import { EditAddressComponent } from './edit-address/edit-address.component';
 import { CarritoComponent } from './carrito/carrito.component';
+import { CompraComponent } from './compra/compra.component';
 
 const routes: Routes = [
   { path:"", component:HomeComponent },
@@ -27,7 +28,9 @@ const routes: Routes = [
   { path:"forgot-password", component:ForgotPasswordComponent },
   { path:"profile-details", component:ProfileDetailsComponent },
   { path:"address", component:AddressComponent },
-  { path:"edit-address", component:EditAddressComponent }
+  { path:"edit-address", component:EditAddressComponent},
+  { path:"compra", component:CompraComponent  }
+  
 
 
 ];

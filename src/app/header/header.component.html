@@ -51,7 +51,7 @@
             Cuenta
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown5">
-            <li><a routerLink="/dashboard">Dahsboard</a></li>
+            <li><a routerLink="/dashboard">Historial de Orden</a></li>
             <li><a routerLink="/order">Orden</a></li>
             <li><a routerLink="/address">Dirección</a></li>
             <li><a routerLink="/profile-details">Detalle Perfil</a></li>
@@ -86,11 +86,11 @@
             <div class="media-body">
               <h6>{{x.nombre}}</h6>
               <div class="cart-price">
-                <span>1 x </span>
-                <span>{{ x.precioPro}}</span>
+                <span>{{x.cantidad}} x </span>
+                <span>${{x.precioPro}}</span>
               </div>
             </div>
-            <button class="remove" (click)="removeProduct(x,products)"><i class="tf-ion-close"></i></button>
+            <button class="remove" (click)="removeProduct(x)"><i class="tf-ion-close"></i></button>
           </div><!-- / Cart Item -->
 
           <!-- Cart Item -->
@@ -110,11 +110,20 @@
           <!-- / Cart Item -->
 
           <div class="cart-summary">
+            <span class="h6">Sub-Total</span>
+            <span class="total-price h6">${{precioSubTotal}}</span>
+          </div>
+
+          <div class="cart-summary">
+            <span class="h6">Envío</span>
+            <span class="total-price h6">${{precioEnvio}}</span>
+          </div>
+          <hr>
+          <div class="cart-summary">
             <span class="h6">Total</span>
             <span class="total-price h6">${{precioTotal}}</span>
-
             <div class="text-center cart-buttons mt-3">
-              <a routerLink="/cart" class="btn btn-small btn-transparent btn-block">View Cart</a>
+              <a routerLink="/carrito" class="btn btn-small btn-transparent btn-block">View Cart</a>
               <a routerLink="/checkout" class="btn btn-small btn-main btn-block">Checkout</a>
             </div>
           </div>

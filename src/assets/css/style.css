@@ -447,7 +447,34 @@ a.text-primary:hover {
   padding: 60px 0px;
   position: relative;
 }
-
+.page-header-order{
+  background: #f5f5f5;
+  background: url("https://png.pngtree.com/thumb_back/fw800/back_our/20190619/ourmid/pngtree-shopping-mall-supermarket-selection-merchandise-poster-background-material-image_133225.jpg") no-repeat 50% 50%;
+  background-size: cover;
+  padding: 60px 0px;
+  position: relative;
+}
+.page-header-compra{
+  background: #f5f5f5;
+  background: url("https://media.istockphoto.com/photos/groceries-in-reusable-green-shopping-bag-on-supermarket-banner-picture-id1189616680?k=20&m=1189616680&s=170667a&w=0&h=1C5p9SSQQKqrFOywiHMesSy5k6ofXkrc386D3uoNcZw=") no-repeat 50% 50%;
+  background-size: cover;
+  padding: 60px 0px;
+  position: relative;
+}
+.page-header-carrito{
+  background: #f5f5f5;
+  background: url("https://static.vecteezy.com/system/resources/previews/003/695/333/large_2x/black-friday-horizontal-banner-with-lettering-and-shopping-cart-hand-drawn-style-background-template-for-sales-and-advertising-vector.jpg") no-repeat 50% 50%;
+  background-size: cover;
+  padding: 60px 0px;
+  position: relative;
+}
+.page-header-checkout{
+  background: #f5f5f5;
+  background: url("https://art.usc.edu/intermedia/images/checkout-banner.png") no-repeat 50% 50%;
+  background-size: cover;
+  padding: 60px 0px;
+  position: relative;
+}
 .page-header h1 {
   margin-bottom: 0px;
 }
@@ -1791,7 +1818,7 @@ a.text-primary:hover {
 
 .ads {
   background: rgba(252, 114, 104, 0.06);
-  background: url("../images/counter.jpg") no-repeat;
+  background: url("../images/banner4.jpg") no-repeat;
   background-size: cover;
   position: relative;
 }

@@ -15,6 +15,7 @@ export class ShopComponent implements OnInit {
     this.listarProductAll();
     this.listarCategoria();
     this.listarMarca();
+    this.listarPopular();
   }
   
   mntProducto={
@@ -32,6 +33,7 @@ export class ShopComponent implements OnInit {
   }
 
   objProductAll = [];
+  objPopular = [];
   listarProductAll(){
     this.mntProducto.opcion = 5;
     this.mntProducto.estado = 1;
@@ -41,6 +43,16 @@ export class ShopComponent implements OnInit {
         this.objProductAll[i].imagenPro=RutaImg+this.objProductAll[i].imagenPro;
       }
       console.log(this.objProductAll);
+    })
+  }
+  listarPopular(){
+    let opcion = 1;
+    this.fapi.fapiGetParameter('listarPopular',opcion).subscribe(x=>{
+      this.objPopular = x[0];
+      for (let i = 0; i < this.objPopular.length; i++) {
+        this.objPopular[i].imagenPro=RutaImg+this.objPopular[i].imagenPro;
+      }
+      console.log(this.objPopular);
     })
   }
   filtrarCategoria(){

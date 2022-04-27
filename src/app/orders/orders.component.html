@@ -1,15 +1,15 @@
-<section class="page-header">
+<section class="page-header-order">
     <div class="overly"></div>   
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-lg-6">
           <div class="content text-center">
             <h1 class="mb-3">Order</h1>
-            <p>Order</p>
+            <p>Buscar tu orden</p>
           <nav aria-label="breadcrumb">
             <ol class="breadcrumb bg-transparent justify-content-center">
-              <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
-              <li class="breadcrumb-item active" aria-current="page">Order</li>
+              <li class="breadcrumb-item"><a routerLink="/">Inicio</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Orden</li>
             </ol>
           </nav>
           </div>
@@ -22,7 +22,7 @@
       <div class="row">
         <div class="col-12 col-md-5 col-sm-12 col-lg-3">
           <div class="nav flex-column nav-pills">
-            <a class="nav-link" routerLink="/dashboard" >Dashboard</a>
+            <a class="nav-link" routerLink="/dashboard" >Historial Orden</a>
           </div>
           <div class="nav flex-column nav-pills">
             <a class="nav-link active" routerLink="/order" >Orders</a>
@@ -41,7 +41,7 @@
           </div>
         </div>
         <div class="col-12 col-md-7 col-sm-12 col-lg-9">
-          <table class="table table-bordered">
+          <!--<table class="table table-bordered">
             <thead>
               <tr>
                 <th scope="col">Order</th>
@@ -56,4 +56,58 @@
                 <th scope="row">#1012</th>
                 <td>June 11, 2019 </td>
                 <td>Completed</td>
-                <td>30</td> <td><a routerLink="/order" class="btn btn-dark btn-small">View</a></td> </tr> <tr> <th scope="row">#2214</th> <td>March 10, 2019</td> <td>Completed</td> <td>50</td> <td><a routerLink="/order" class="btn btn-dark btn-small">View</a></td> </tr> <tr> <th scope="row">#3434</th> <td>February 11, 2019</td> <td>Pending</td> <td>25</td> <td><a routerLink="/order" class="btn btn-dark btn-small">View</a></td> </tr> <tr> <th scope="row">#5312</th> <td>July 11, 2019</td> <td>Processsing</td> <td>56</td> <td><a routerLink="/order" class="btn btn-dark btn-small">View</a></td> </tr> </tbody> </table> </div> </div> </div> </section>
+                <td>30</td> <td><a routerLink="/order" class="btn btn-dark btn-small">View</a></td> </tr> <tr> <th scope="row">#2214</th> <td>March 10, 2019</td> <td>Completed</td> <td>50</td> <td><a routerLink="/order" class="btn btn-dark btn-small">View</a></td> </tr> <tr> <th scope="row">#3434</th> <td>February 11, 2019</td> <td>Pending</td> <td>25</td> <td><a routerLink="/order" class="btn btn-dark btn-small">View</a></td> </tr> <tr> <th scope="row">#5312</th> <td>July 11, 2019</td> <td>Processsing</td> <td>56</td> <td><a routerLink="/order" class="btn btn-dark btn-small">View</a></td> </tr> 
+              </tbody> 
+              </table> -->
+              <div class="container">
+                <div class="row" style="border: 1px solid #D5DBDB;padding: 5px;">
+                  <div class="col-sm-8">
+                    <input type="text" [(ngModel)]="mntOrden.orden" class="form-control" placeholder="Nro. Orden" >
+                  </div>
+                  <div class="col-sm-4">
+                    <button type="button" style="float: right;" class="btn btn-dark" (click)="listarOrden()">Buscar</button>
+                  </div>
+                </div>
+
+                <div class="row" style="padding: 5px;margin-top: 10px;">
+                  <div class="col-sm-12" style="border: 1px solid #D5DBDB;margin-bottom: 20px;" *ngFor="let x of objOrden">
+                   
+                    <div class="container" style="height: 30px;">
+                      <div class="row">
+                        <div class="col-sm-2">
+                          <p>Pedido No. {{x.nroRecibo}}</p>
+                        </div>
+                        <div class="col-sm-4">
+                          <p>Comprado el {{x.order_fecha | date}}</p>   
+                        </div>
+                      </div>
+                    </div>
+                      <div class="container">
+                        <div class="row">
+                          <div class="col-sm-9">
+                            <table class="table table-striped" >
+                              <thead class="tableStyle">
+                              </thead>
+                              <tbody>
+                                <tr *ngFor="let y of objDetails">
+                                  <th *ngIf="x.nroRecibo == y.idOrden" class="text-center"><img style="width: 50px;height: 50px;" src="{{y.imagenPro}}"></th>
+                                  <th *ngIf="x.nroRecibo == y.idOrden" class="text-center">{{y.nombre}}</th>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                          <div class="col-sm-3" style="background-color: #F2F2F2;">
+                            <p >SubTotal: S/{{x.subtotal}}</p>
+                            <p >Envio: S/{{x.envio}}</p>
+                            <p style="font-weight: bold;color:black;">Total: S/{{x.Total}}</p>
+                          </div>
+                        </div>
+                      </div>
+                  </div>
+                </div>
+
+              </div>
+            </div> 
+          </div> 
+        </div> 
+      </section>

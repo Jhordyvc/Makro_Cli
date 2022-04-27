@@ -1,5 +1,5 @@
 <div>
-    <section class="page-header">
+    <section class="page-header-carrito">
       <div class="overly"></div>   
       <div class="container">
         <div class="row justify-content-center">
@@ -49,23 +49,26 @@
                                     <a href="#">{{x.nombre}}</a>
                                 </td>
                                 <td class="product-price" data-title="Price">
-                                    <span class="amount">
+                                    <span class="Price">
                                         {{x.precioPro}}
                                     </span>
                                 </td>
                                 <td class="product-quantity" data-title="Quantity">
-                                    <div class="quantity"><br>
+                                  <span class="amount">
+                                    {{x.cantidad}}
+                                 </span>
+                                    <!--<div class="quantity"><br>
                                         <label class="sr-only" >Quantity</label>
-                                        <input type="number" id="qty" class="input-text qty text" step="1" min="0" max="9" value="1" title="Qty" size="4"  ><br>
-                                    </div><br>
+                                        <input type="number" id="qty" class="input-text qty text" step="1" min="0" max="9" title="Qty" size="4"  ><br>
+                                    </div><br>-->
                                 </td>
                                 <td class="product-subtotal" data-title="Total">
                                     <span class="amount">
-                                    {{x.imagenPro}}
+                                    {{x.totalPagar}}
                                     </span>
                                 </td>
                                 <td class="product-remove" data-title="Remove">
-                                    <a href="#" class="remove" aria-label="Remove this item" data-product_id="30" data-product_sku="">×</a>
+                                  <button class="remove" (click)="removeProduct(x)"><i class="tf-ion-close"></i></button>
                                 </td>
                             </tr>
                             <tr class="cart_item">
@@ -134,32 +137,19 @@
                             <div class="row">
                                 <div class="col-sm-12">
                                     <h5>Nro Tarjeta:</h5>
-                                    <input type="text" class="form-control" placeholder="Nro Tarjeta">
+                                    <input type="text" class="form-control" placeholder="Nro Tarjeta" [(ngModel)]="mntTarjeta.nroTarjeta" min="0" min="9">
                                   </div>
                             </div>
                           </div><hr>
                           <div class="container">
                             <div class="row">
-                              <div class="col-sm-12">
-                                <h5>Mes de Expiraciòn:</h5>
-                                <div class="container">
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <input type="date" class="form-control">
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <input type="date" class="form-control">
-                                        </div>
-                                    </div>
-                                </div>
+                              <div class="col-sm-6">
+                                <h5>Mes expiración:</h5>
+                                <input type="text" class="form-control" placeholder="Mes Expiración" [(ngModel)]="mntTarjeta.mes">
                               </div>
-                            </div>
-                          </div><hr>
-                          <div class="container">
-                            <div class="row">
                               <div class="col-sm-6">
                                 <h5>CVV:</h5>
-                                <input type="text" class="form-control" placeholder="CVV">
+                                <input type="text" class="form-control" placeholder="CVV" [(ngModel)]="mntTarjeta.cvv">
                               </div>
                             </div>
                           </div><hr>
@@ -167,11 +157,11 @@
                             <div class="row">
                                 <div class="col-sm-6">
                                     <h5>Nombre Titular:</h5>
-                                    <input type="text" class="form-control" placeholder="Nombre Titular">
+                                    <input type="text" class="form-control" placeholder="Nombre Titular" [(ngModel)]="mntTarjeta.nombre">
                                   </div>
                                   <div class="col-sm-6">
-                                    <h5>Correo:</h5>
-                                    <input type="text" class="form-control" placeholder="Correo">
+                                    <h5>DNI:</h5>
+                                    <input type="text" class="form-control" placeholder="DNI" [(ngModel)]="mntTarjeta.dni">
                                   </div>
                             </div>
                           </div><hr>
@@ -187,22 +177,22 @@
 
                 <div class="col-lg-4"><br>
                     <div class="cart-info card p-4 mt-4">
-                        <h4 class="mb-4">Cart totals</h4>
+                        <h4 class="mb-4">Total</h4>
                         <ul class="list-unstyled mb-4">
                           <li class="d-flex justify-content-between pb-2 mb-3">
                             <h5>Subtotal</h5>
-                            <span>$90.00</span>
+                            <span>${{precioSubTotal}}</span>
                           </li>
                            <li class="d-flex justify-content-between pb-2 mb-3">
-                            <h5>Shipping</h5>
-                            <span>Free</span>
+                            <h5>Envío</h5>
+                            <span>${{precioEnvio}}</span>
                           </li>
                            <li class="d-flex justify-content-between pb-2">
                             <h5>Total</h5>
-                            <span>$90.00</span>
+                            <span>${{precioTotal}}</span>
                           </li>
                         </ul>
-                        <button class="btn btn-main btn-small">Proceed to checkout</button>
+                        <button class="btn btn-main btn-small" (click)="validarTarjeta()">Proceed to checkout</button>
 
                     </div>
                 </div>
@@ -268,3 +258,590 @@
           </div>
       </section>
   </div>
+
+
+
+
+
+
+
+
+
+
+
+
+<!--  <div style="margin:0;padding:0">
+ 
+
+    <div style="display:none;font-size:1px;color:#333333;line-height:1px;font-family:Arial,sans-serif;max-height:0px;max-width:0px;opacity:0;overflow:hidden">
+  
+  
+      Estamos validando tu compra y este es el número de orden: 42372535
+  
+  
+    </div>
+  
+  
+  
+   <table bgcolor="white" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout:fixed">
+  
+      <tbody><tr>
+          <td bgcolor="#F7F4F4">
+              
+              <table border="0" cellpadding="0" cellspacing="0" width="560" bgcolor="#ffffff" align="center">
+  
+               
+                  <tbody><tr>
+                      <td align="center" style="padding:12px 0;font-family:'Barlow',Arial,sans-serif" bgcolor="#F7F4F4">
+                         
+                      </td>
+                  </tr>
+             
+  
+                  <tr>
+                      <td align="center" style="padding:35px 0 24px 0">
+                          <a href="http://links.ripleycorreos.cl/ctt?ms=NDYwNTY1ODAS1&amp;kn=4&amp;r=LTUwNTQxMDM4OTYS1&amp;b=0&amp;j=MjE2MDUzOTYzNwS2&amp;mt=1&amp;rt=0" name="m_2954060768881789278_simple_ripley_cl_" target="_blank" data-saferedirecturl="https://www.google.com/url?q=http://links.ripleycorreos.cl/ctt?ms%3DNDYwNTY1ODAS1%26kn%3D4%26r%3DLTUwNTQxMDM4OTYS1%26b%3D0%26j%3DMjE2MDUzOTYzNwS2%26mt%3D1%26rt%3D0&amp;source=gmail&amp;ust=1650046439587000&amp;usg=AOvVaw22XMP_xjZkI4DzCYrMt551"><img src="https://ccoutletfactory.com/wp-content/uploads/2018/07/makro-outlet-factory-1.jpg" alt="R.com" width="80" border="0" style="display:block;font-family:Times New Roman,serif;font-weight:600;font-size:14px;color:#464646;margin:0" class="CToWUd"></a>
+                      </td>
+                  </tr>
+                </tbody></table>
+               
+          </td>
+      </tr>
+   </tbody></table>
+    
+  
+  
+  
+   <table bgcolor="white" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout:fixed">
+      <tbody><tr>
+        <td bgcolor="#F7F4F4">
+        <table align="center" border="0" cellpadding="0" cellspacing="0" width="560">
+          <tbody><tr>
+            <td>
+              <table border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#D92830">
+                <tbody><tr>
+                  <td align="center" colspan="1" style="padding:24px 0">
+                    
+                     <img src="http://pa1.narvii.com/7646/98b6341db282f75efd87f55d385f32419041e804r1-400-225_00.gif" alt="" height="80" align="center" class="CToWUd">
+                 </td>
+                </tr>
+                <tr>
+                  <td align="center" colspan="1" style="padding:0 24px 24px 24px;color:#000000" width="400">
+                      
+                    <span style="font-size:35px;font-family:'Barlow',Arial,sans-serif;font-weight:bold;color: white;">
+                      ¡Jhordy, gracias por comprar en <span class="il">Ripley</span>.com!
+                    </span>
+                  </td>
+                </tr>
+              </tbody></table>
+            </td>
+          </tr>
+        </tbody></table>
+          </td>
+      </tr>
+   </tbody></table>
+  
+  
+    <table border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout:fixed">
+      <tbody><tr>
+        <td align="center" bgcolor="#F7F4F4" style="padding:0">
+          
+          <table border="0" cellpadding="0" cellspacing="0" width="560" bgcolor="white" style="padding:24px 24px 0">
+         
+          <tbody><tr>
+           
+             <td style="font-family:'Barlow',arial,sans-serif;font-size:30px;color:#464646;background:white" align="left" colspan="2">
+              Número de pedido <b>42372535</b>
+            </td>
+          </tr>
+          </tbody></table>
+        </td>
+      </tr>
+    </tbody></table>
+    
+  
+  <table border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout:fixed" bgcolor="#F7F4F4">
+    <tbody><tr>
+      <td align="center">
+        
+        <table bgcolor="#ffffff" border="0" cellpadding="0" cellspacing="0" width="560" align="center" style="padding:24px">
+          <tbody><tr>
+            <td style="font-family:'Barlow',arial,sans-serif;font-size:28px;color:#464646;font-weight:bold;text-align:left" bgcolor="white">
+              Pasos de tu compra
+           </td>
+          </tr>
+          <tr>
+            <td>
+              <table border="0" cellpadding="0" cellspacing="0" width="510" align="center" style="padding-top:16px">
+                <tbody><tr bgcolor="white">
+               
+                  <td style="padding:0;color:white" bgcolor="white" align="center" colspan="1" width="40">
+                    <img src="https://ci3.googleusercontent.com/proxy/WAwHJAHGnVkuvOOZZWrJiziyaW8KhGXRLqWd3mBWx2fQkVoTpSGodn7_2gc2ftvghw1U3GyxR0yw38pTeqbeyBQViO9ajrsEqbfjQjeCJjE=s0-d-e1-ft#https://home.ripley.cl/assets-mails-2020/img/paso1-morado.png" alt="" width="58" class="CToWUd">
+                  </td>
+                  <td style="padding:0;color:white" bgcolor="white" align="center" colspan="1" width="40">
+                   <img src="https://ci3.googleusercontent.com/proxy/DXe4d0JBXIk0tQqt0v8Ln-6n4C-YoyA9C1q6sXLOFugIox-elL5SUShSrWWYKbjeRlKK-D5kk2ACGRTdSvxqFmAybv8aCXJoulhgmihYk6vm0pd84LeLfAF5=s0-d-e1-ft#https://home.ripley.com.pe/iconos-ripley/mailing/boleta_desactivada.png" alt="" width="40" class="CToWUd">
+                 </td>
+                 <td style="padding:0;color:white" bgcolor="white" align="center" colspan="1" width="40">
+                   <img src="https://ci3.googleusercontent.com/proxy/nFZLH8RYX1YRoqawmIv-9NNvRIGrL9O3YcBT6x7aPB6_O0S_OhWBAephqwLVAEi3VP2xfFKr2TkgTPaRsNqaUzK1MoZsaJ8LQlyfBqr2DGrs-g=s0-d-e1-ft#https://home.ripley.com.pe/iconos-ripley/mailing/listo_gris.png" alt="" width="40" class="CToWUd">
+                 </td>
+                 <td style="padding:0;color:white" bgcolor="white" align="center" colspan="1" width="40">
+                   <img src="https://ci3.googleusercontent.com/proxy/OmI4dHtiQL35i11xkXiZP1l0Z-Ydtexxb5e-QB_pgrtslpejggMPsVbP-NxbA-XzMTrm3VJfeo6NQXOGLcxeOl87pVGRrUE937s20kci=s0-d-e1-ft#https://home.ripley.cl/assets-mails-2020/img/paso4-gris.png" alt="" width="58" class="CToWUd">
+                 </td>
+                </tr>
+         
+                <tr bgcolor="white">
+                  <td style="padding:0 14px 0 14px;font-family:'Barlow',arial,sans-serif;font-size:24px;color:#633f7b;font-weight:bold;text-align:center" bgcolor="white" colspan="1" width="490">
+                    Paso 1
+                 </td>
+                 <td style="padding:0 14px 0 14px;font-family:'Barlow',arial,sans-serif;font-size:24px;color:#bcbcbc;font-weight:bold;text-align:center" bgcolor="white" colspan="1" width="490">
+                  Paso 2
+               </td>
+               <td style="padding:0 14px 0 14px;font-family:'Barlow',arial,sans-serif;font-size:24px;color:#bcbcbc;font-weight:bold;text-align:center" bgcolor="white" colspan="1" width="490">
+                Paso 3
+             </td>
+             <td style="padding:0 14px 0 14px;font-family:'Barlow',arial,sans-serif;font-size:24px;color:#bcbcbc;font-weight:bold;text-align:center" bgcolor="white" colspan="1" width="490">
+              Paso 4
+              </td>
+                </tr>
+  
+                <tr bgcolor="white">
+                  <td style="font-family:'Barlow',arial,sans-serif;font-size:18px;color:#633f7b;font-weight:400;text-align:center" bgcolor="white" colspan="1" width="490">
+                    Recibimos<br>
+                    tu pedido
+  
+                 </td>
+                 <td style="font-family:'Barlow',arial,sans-serif;font-size:18px;color:#bcbcbc;font-weight:400;text-align:center" bgcolor="white" colspan="1" width="490">
+                  Pedido <br>
+                  confirmado
+  
+               </td>
+  
+           <td style="font-family:'Barlow',arial,sans-serif;font-size:18px;color:#bcbcbc;font-weight:400;text-align:center" bgcolor="white" colspan="1" width="490">
+            Listo para<br>
+            retirar
+          </td>
+             <td style="font-family:'Barlow',arial,sans-serif;font-size:18px;color:#bcbcbc;font-weight:400;text-align:center" bgcolor="white" colspan="1" width="490">
+              Producto <br>
+              entregado
+          </td>
+                </tr>      
+               </tbody></table>
+            </td>
+          </tr>
+        </tbody></table>
+  
+      </td>
+    </tr>
+  </tbody></table>
+  
+  
+  
+  <table border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout:fixed" bgcolor="#F7F4F4">
+  <tbody><tr>
+    <td align="center">
+      
+      <table bgcolor="#ffffff" border="0" cellpadding="0" cellspacing="0" width="560" align="center" style="padding:0 24px">
+        <tbody><tr>
+          <td style="font-family:'Barlow',arial,sans-serif;font-size:28px;color:#464646;font-weight:bold;text-align:left" bgcolor="white">
+          Resumen
+         </td>
+        </tr>
+      </tbody></table>
+    </td>
+  </tr>
+  </tbody></table>
+  
+  
+  
+  <table bgcolor="#F5F5F5" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout:fixed;font-family:'Barlow',arial,sans-serif">
+    <tbody><tr>
+      <td align="center">
+        
+        <table border="0" cellpadding="0" cellspacing="0" width="560" align="center" bgcolor="#FFFFFF" style="padding:24px 24px 0 24px">
+          <tbody><tr>
+            <td>
+              <table bgcolor="#FFFEE0" align="center" width="512" style="padding:10px;border:1px dashed #ffd419">
+               <tbody><tr>
+                <td colspan="1" width="15" style="padding-top:0 15px" align="right">
+                  <img src="https://ci6.googleusercontent.com/proxy/-4B7x33v_jgWPuao42DOqeRtvNZ8lldB-Sa6tZBAwLNBPvQCw-cTKYJXR70VVwFHudOrnwZ4azctTirQllvoEyFUYBU_uqxswYW-Z6U=s0-d-e1-ft#https://home.ripley.cl/assets-mails-2020/motion/alerta.gif" alt="!" width="25" class="CToWUd">
+                 </td>
+                 <td colspan="1" style="padding:0 15px;font-size:16px">
+  
+  
+                   </td><td colspan="1" style="padding:0 15px;font-size:16px">
+                    <b style="color:#464646;font-weight:400">Recibirás un correo cuando tu pedido esté listo para ser retirado</b>
+                  </td>
+  
+  
+                 
+               </tr>
+       
+              </tbody></table>
+            </td>
+          </tr>
+        </tbody></table>
+      </td>
+    </tr>
+  </tbody></table>
+  
+  
+  
+  <table border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout:fixed" bgcolor="#F7F4F4">
+    <tbody><tr>
+      <td align="center">
+        
+        <table border="0" cellpadding="0" cellspacing="0" width="560" align="center">
+         <tbody><tr bgcolor="white">
+         <td style="color:white;padding:24px 8px 0 18px" bgcolor="white" align="right" colspan="1" width="40">
+             <img src="https://ci5.googleusercontent.com/proxy/CrvaijHshJcR4mN6WnEHymdZgAbl7GvLXhhSM8IQcavDcDFnNz9qFi4fl6PDMkqWKt3HyTRkEgmo4llLTGGmLM3UpHl3vHWjvO8=s0-d-e1-ft#https://home.ripley.cl/assets-mails-2020/img/Retiro.png" alt="" width="35" style="vertical-align:bottom" class="CToWUd">
+           </td>
+  
+          <td style="font-family:'Barlow',arial,sans-serif;font-size:18px;color:#464646;padding:24px 24px 0 8px" bgcolor="white" colspan="1" width="490">
+            <span style="font-size:25px"><b>Retiro en otros puntos</b></span>
+           
+         </td></tr>
+        </tbody></table>
+      </td>
+    </tr>
+  </tbody></table>
+  
+  
+  
+   
+          <table border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout:fixed" bgcolor="#F7F4F4">
+            <tbody><tr>
+              <td align="center">
+                
+                   <table border="0" cellpadding="0" cellspacing="0" width="560" align="center">
+                     <tbody><tr bgcolor="white">
+                     <td style="color:white;padding:24px 8px 24px 16px" bgcolor="white" align="right" colspan="1" width="40">
+                         <img src="https://ci4.googleusercontent.com/proxy/lGtPyp5C0l6gfrBW1Z07uOphtT6ARtUm7cQM9oV7ouvPQyUB8LOgMnVS_BwLy-LOSC2cePgETnUFw9YPGVQNyqA3WDMUeU6y7XFQvq8=s0-d-e1-ft#https://home.ripley.cl/assets-mails-2020/img/ubicacion.png" alt="" width="24" style="vertical-align:bottom" class="CToWUd">
+                       </td>
+                       <td style="font-family:'Barlow',arial,sans-serif;font-size:18px;color:#464646;padding:24px 24px 24px 8px" bgcolor="white" colspan="1" width="490">
+                        <span style="font-size:20px">TAMBO THORNE-C1, MZA. F LOTE. 7 URB. SANTO DOMINGO</span>
+                      </td>
+                     </tr>
+                    </tbody></table>
+              </td>
+            </tr>
+          </tbody></table>
+          
+  
+  
+  
+  
+   
+  <table border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout:fixed" bgcolor="#F7F4F4">
+      <tbody><tr>
+          <td align="center" bgcolor="#F7F4F4" style="padding:0">
+              <table bgcolor="white" border="0" cellpadding="0" cellspacing="0" width="560" style="padding:0 24px 0">
+  
+                
+                  <tbody><tr style="background:white">
+                    <td>
+                      <table width="512">
+                        <tbody><tr><td colspan="1" width="20" style="font-family:'Barlow',Arial,sans-serif;font-weight:normal;font-size:18px;line-height:19.5px;vertical-align:top;padding:0;color:#4b4b4b">
+                          1x
+                          </td>
+                          <td align="center" valign="top" style="padding:0" width="80">
+                             <img src="https://oechsle.vteximg.com.br/arquivos/ids/1401994-1500-1500/1539017.jpg?v=637494404403970000" style="padding:5px 7px;background:#ffffff;font-family:'Barlow',Arial,sans-serif;font-size:14px" width="60" alt="Imagen producto" class="CToWUd">
+                          </td>
+                          <td align="left" style="font-family:'Barlow',Arial,sans-serif;font-weight:normal;font-size:18px;line-height:19.5px;vertical-align:top;padding:0 7px;color:#4b4b4b;text-transform:capitalize" width="200">
+                                  <b>UMBRO MEDIAS DEPORTIVAS 3 PACK CREW - NEGRO - M</b> <br>
+                                  <span style="font-size:16px">Fecha estimada de entrega: <br> 08/01/2022 </span>
+                          </td>  
+  
+                          <td align="right" style="font-family:'Barlow',Arial,sans-serif;font-weight:normal;font-size:18px;line-height:22px;vertical-align:top;padding:0 0 0 7px;color:#464646" width="120">
+                                 S/ 39.99
+                          </td>
+                          </tr><tr>
+                            <td style="border-bottom:1px solid #dedede;padding-bottom:12px" colspan="4"></td>
+                          </tr>
+                      </tbody></table>
+                    </td>
+                  </tr>
+                </tbody></table>
+                
+  
+                
+                <table bgcolor="white" border="0" cellpadding="0" cellspacing="0" width="560" style="padding:12px 24px 0">
+                  <tbody><tr>
+                    <td>
+                      <table width="512">
+                        <tbody><tr><td colspan="1" width="20" style="font-family:'Barlow',Arial,sans-serif;font-weight:normal;font-size:18px;line-height:19.5px;vertical-align:top;padding:0;color:#4b4b4b">
+                          1x
+                          </td>
+                          <td align="center" valign="top" style="padding:0" width="80">
+                             <img src="https://ci4.googleusercontent.com/proxy/5kfdN4QN9nteEgAX1WTpvwWf94VJPJWAQLnk3tAdRPbNTFFrysyvLXJDDXRx_wFhejv1dLCDsEVEHjUXONTfHk83HPjLqTd2qroy1VMlkbLqn5_qogZ84vfjl7EERQ=s0-d-e1-ft#https://home.ripley.com.pe/Attachment/WOP_5/2025272911814/2025272911814.jpg" style="padding:5px 7px;background:#ffffff;font-family:'Barlow',Arial,sans-serif;font-size:14px" width="60" alt="Imagen producto" class="CToWUd">
+                          </td>
+                          <td align="left" style="font-family:'Barlow',Arial,sans-serif;font-weight:normal;font-size:18px;line-height:19.5px;vertical-align:top;padding:0 7px;color:#4b4b4b;text-transform:capitalize" width="200">
+                                  <b>INDEX PLAYERAS IPONA - NEGRO - 41</b> <br>
+                                  <span style="font-size:16px">Fecha estimada de entrega: <br> 08/01/2022 </span>
+                          </td>  
+  
+                          <td align="right" style="font-family:'Barlow',Arial,sans-serif;font-weight:normal;font-size:18px;line-height:22px;vertical-align:top;padding:0 0 0 7px;color:#464646" width="120">
+                                 S/ 24.98
+                          </td>
+                          </tr><tr>
+                            <td style="border-bottom:1px solid #dedede;padding-bottom:12px" colspan="4"></td>
+                          </tr>
+                      </tbody></table>
+                    </td>
+                  </tr>
+                </tbody></table>
+                  
+  
+                  
+                  
+  
+                  
+                  
+  
+                  
+                  
+  
+                  
+                  
+  
+                  
+                  
+  
+                  
+                  
+  
+                  
+                  
+  
+                  
+                  
+  
+                  
+                  
+  
+                  
+                  
+  
+                  
+                  
+  
+                  
+                  
+  
+                  
+                  
+  
+                  
+  
+                  
+  
+                  
+                  
+  
+                  
+                  
+  
+                  
+                  
+  
+                  
+                
+             
+          </td>
+      </tr>
+  </tbody></table>
+  
+  
+  
+  <table bgcolor="#F5F5F5" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout:fixed">
+      <tbody><tr>
+          <td align="center" bgcolor="#F7F4F4" style="padding:0">
+              <table bgcolor="#ffffff" border="0" cellpadding="0" cellspacing="0" width="560">
+                  <tbody><tr>
+                      <td align="center" style="padding:24px">
+                          <table cellpadding="0" cellspacing="0" width="100%">
+                              <tbody><tr>
+                                  <td style="padding:10px 13px 10px 0;color:#464646;font-family:'Barlow',arial,helvetica,sanserif;font-size:18px;background:white" colspan="1" width="276">
+                                      Fecha
+                                    </td>
+                                    <td style="padding:10px 0 10px 50px;color:#464646;font-family:'Barlow',arial,helvetica,sanserif;font-size:18px;background:white;text-align:right" colspan="1" width="276">
+                                      <span style="text-decoration:none!important;color:#464646">05/01/2022, 19:59 hr</span>
+                                      </td>
+                              </tr>
+                              <tr>
+                                  <td style="padding:10px 13px 10px 0;color:#464646;font-family:'Barlow',arial,helvetica,sanserif;font-size:18px;background:white" colspan="1" width="276">
+                                      Nº de orden
+                                    </td>
+                                    <td style="padding:10px 0 10px 50px;color:#464646;font-family:'Barlow',arial,helvetica,sanserif;font-size:18px;background:white;text-align:right" colspan="1" width="276">
+                                      <span style="text-decoration:none!important;color:#464646">42372535</span>
+                                    </td>
+                              </tr>
+                              <tr>
+                                  <td style="padding:10px 13px 10px 0;color:#464646;font-family:'Barlow',arial,helvetica,sanserif;font-size:18px;background:white" colspan="1" width="276">
+                                      Medio de pago
+                                    </td>
+                                    <td style="padding:10px 0 10px 50px;color:#464646;font-family:'Barlow',arial,helvetica,sanserif;font-size:18px;background:white;text-align:right" colspan="1" width="276">
+                                      <span style="text-decoration:none!important;color:#464646">visa</span>
+                                    </td>
+                              </tr>
+  
+                              <tr>
+                                  <td style="padding:10px 13px 10px 0;color:#464646;font-family:'Barlow',arial,helvetica,sanserif;font-size:18px;background:white" colspan="1" width="276">
+                                      Extragarantía
+                                    </td>
+                                    <td style="padding:10px 0 10px 50px;color:#464646;font-family:'Barlow',arial,helvetica,sanserif;font-size:18px;background:white;text-align:right" colspan="1" width="276">
+                                      <span style="text-decoration:none!important;color:#464646">S/ 0.00</span>
+                                    </td>
+                              </tr>
+                              <tr>
+                                  <td style="padding:10px 13px 10px 0;color:#464646;font-family:'Barlow',arial,helvetica,sanserif;font-size:18px;background:white" colspan="1" width="276">
+                                      Descuentos
+                                    </td>
+                                    <td style="padding:10px 0 10px 50px;color:#464646;font-family:'Barlow',arial,helvetica,sanserif;font-size:18px;background:white;text-align:right" colspan="1" width="276">
+                                      <span style="text-decoration:none!important;color:#464646">-S/ 0.00</span>
+                                    </td>
+                              </tr>
+                              <tr>
+                                  <td style="padding:10px 13px 10px 0;color:#464646;font-family:'Barlow',arial,helvetica,sanserif;font-size:18px;background:white" colspan="1" width="276">
+                                      Despacho
+                                    </td>
+                                    <td style="padding:10px 0 10px 50px;color:#464646;font-family:'Barlow',arial,helvetica,sanserif;font-size:18px;background:white;text-align:right" colspan="1" width="276">
+                                      <span style="text-decoration:none!important;color:#464646">S/ 0.00</span>
+                                    </td>
+                              </tr>
+                              <tr>
+                                  <td style="padding:24px 0;color:#464646;font-family:'Barlow',arial,helvetica,sanserif;font-size:25px;background:white;border-top:solid #464646 2px" colspan="1" width="276">
+                                      <b>Total pagado</b>
+                                    </td>
+                                    <td style="padding:24px 0;color:#464646;font-family:'Barlow',arial,helvetica,sanserif;font-size:25px;background:white;text-align:right;border-top:solid #464646 2px" colspan="1" width="276">
+                                      <span style="text-decoration:none!important;color:#464646"><b>S/ 64.97</b></span>
+                                    </td>
+                              </tr>
+                          </tbody></table>
+                      </td>
+                  </tr>
+  
+              </tbody></table>
+          </td>
+      </tr>
+  </tbody></table>
+  
+  
+  
+  
+  
+  <table bgcolor="#F5F5F5" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout:fixed">
+    <tbody><tr>
+        <td align="center" bgcolor="#F7F4F4" style="padding:0">
+        
+        <table border="0" cellpadding="0" cellspacing="0" width="560" align="center" bgcolor="#FFFFFF" style="padding-bottom:24px;font-family:'Barlow',arial,sans-serif">
+          <tbody><tr>
+           
+            <td>
+              <table align="center" width="520" style="border:1px dashed #464646">
+                <tbody><tr>
+                  <td align="left" style="padding:24px 24px 0;font-size:25px;color:#464646;font-weight:400;font-family:'Barlow',arial,sans-serif" colspan="2">
+                    <b>Ten en cuenta que:
+                       </b>
+                  </td>
+                </tr>
+  
+                <tr>
+                  <td>
+                    <table style="padding:0 24px 24px;font-size:25px;color:#464646;font-weight:400;font-family:'Barlow',arial,sans-serif">
+                      <tbody><tr>
+                        <td colspan="1" width="10" style="padding-top:16px" align="left" valign="top">
+                          </td>
+                         <td colspan="1" style="padding:15px 0 0 10px;font-size:18px;font-family:'Barlow',arial,sans-serif">
+                           <b style="color:#464646;font-weight:400">En el próximo correo te enviaremos tu boleta o factura.
+                         </b></td>
+    </tr><tr>
+    </tr>
+     <tr><td colspan="1" width="10" style="padding-top:16px" align="left" valign="top">
+                           </td>
+                         <td colspan="1" style="padding:15px 0 0 10px;font-size:18px;font-family:'Barlow',arial,sans-serif">
+                           <b style="color:#464646;font-weight:400">Recuerda esperar el correo de confirmación antes de acercarte a retirar tu producto.
+                         </b></td>
+    </tr><tr>
+    </tr>
+  <tr><td colspan="1" width="10" style="padding-top:16px" align="left" valign="top">
+                          </td>
+                         <td colspan="1" style="padding:15px 0 0 10px;font-size:18px;font-family:'Barlow',arial,sans-serif">
+                           <b style="color:#464646;font-weight:400">Todos los pedidos están sujetos a una verificación de disponibilidad de stock, en caso que el producto no se encuentre disponible te enviaremos un mail con la información.
+                         </b></td>
+                      </tr>
+                     
+                    </tbody></table>
+              </td>
+            </tr>
+              </tbody></table>
+            </td>
+          </tr>
+        </tbody></table>
+      </td>
+    </tr>
+  </tbody></table>
+  
+  
+  
+  
+  
+  
+  
+  <table border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout:fixed;padding-bottom:24px" bgcolor="#F5F5F5">
+  <tbody><tr>
+    <td align="center" style="padding:0">
+      
+      <table border="0" cellpadding="0" cellspacing="0" width="560" align="center" bgcolor="#313131">
+        <tbody><tr>
+          <td align="center" width="650" height="65" style="border-bottom:solid #ffffff 1px;vertical-align:bottom;padding:0px 24px 0 24px" colspan="5">
+            <a href="http://links.ripleycorreos.cl/ctt?ms=NDYwNTY1ODAS1&amp;kn=7&amp;r=LTUwNTQxMDM4OTYS1&amp;b=0&amp;j=MjE2MDUzOTYzNwS2&amp;mt=1&amp;rt=0" style="text-decoration:none" name="m_2954060768881789278_simple_ripley_cl__2_1" target="_blank" data-saferedirecturl="https://www.google.com/url?q=http://links.ripleycorreos.cl/ctt?ms%3DNDYwNTY1ODAS1%26kn%3D7%26r%3DLTUwNTQxMDM4OTYS1%26b%3D0%26j%3DMjE2MDUzOTYzNwS2%26mt%3D1%26rt%3D0&amp;source=gmail&amp;ust=1650046439588000&amp;usg=AOvVaw24Efjr-e5bqt5JT3HcxJUL"><img src="https://www.makro.com.ve/wp-content/uploads/2017/03/BANNERS-Y-POP-UP-WEB-2021-21.jpg" alt="Ripley.com" width="450" style="font-family:Times New Roman,serif;font-weight:400;font-size:30px;color:white;vertical-align:bottom;margin-left:20px" class="CToWUd"></a>
+          </td>
+        </tr>
+  
+        <tr>
+          <td align="center" width="650" colspan="5">
+          <table>
+            <tbody><tr>
+              <td colspan="1" style="vertical-align:middle;padding:24px 24px 0 24px" align="right">
+                <a href="http://links.ripleycorreos.cl/ctt?ms=NDYwNTY1ODAS1&amp;kn=9&amp;r=LTUwNTQxMDM4OTYS1&amp;b=0&amp;j=MjE2MDUzOTYzNwS2&amp;mt=1&amp;rt=0" style="text-decoration:none" name="m_2954060768881789278_twitter_com_ripleychile" target="_blank" data-saferedirecturl="https://www.google.com/url?q=http://links.ripleycorreos.cl/ctt?ms%3DNDYwNTY1ODAS1%26kn%3D9%26r%3DLTUwNTQxMDM4OTYS1%26b%3D0%26j%3DMjE2MDUzOTYzNwS2%26mt%3D1%26rt%3D0&amp;source=gmail&amp;ust=1650046439588000&amp;usg=AOvVaw177OSPyhNDNBv2-rTjWjoo">
+                <img src="https://ci5.googleusercontent.com/proxy/ohRazvcccm1XboyA3iIDfgm_mxBWbP7DTpQyohrBos48XHyB6boyg9qtCvW2YMDZpV6Ntcdudu1B06Cogl0do9fROW9ahyh6oTrO=s0-d-e1-ft#https://home.ripley.cl/assets-mails-2020/img/twitter.png" width="30" alt="Twitter" style="font-family:Arial,sans-serif;font-weight:normal;font-size:14px;color:white" class="CToWUd">
+              </a>
+              </td>
+              <td colspan="1" style="vertical-align:middle;padding:24px 24px 0 24px" align="center">
+                <a href="http://links.ripleycorreos.cl/ctt?ms=NDYwNTY1ODAS1&amp;kn=3&amp;r=LTUwNTQxMDM4OTYS1&amp;b=0&amp;j=MjE2MDUzOTYzNwS2&amp;mt=1&amp;rt=0" style="text-decoration:none" name="m_2954060768881789278_www_facebook_com_ripleychile_" target="_blank" data-saferedirecturl="https://www.google.com/url?q=http://links.ripleycorreos.cl/ctt?ms%3DNDYwNTY1ODAS1%26kn%3D3%26r%3DLTUwNTQxMDM4OTYS1%26b%3D0%26j%3DMjE2MDUzOTYzNwS2%26mt%3D1%26rt%3D0&amp;source=gmail&amp;ust=1650046439588000&amp;usg=AOvVaw1Bgm27FNB73kpOQ-_3tsW6">
+                 <img src="https://ci4.googleusercontent.com/proxy/E7FPD4x54wIJCDBLQstfdxipk-pLDypAkAmSwdBYpfFgiI-ZzSxSGEYO4RBY1tG0Iuhm3kJHKllq5_07U6aR4-MsWcFU5zrqiVdxgQ=s0-d-e1-ft#https://home.ripley.cl/assets-mails-2020/img/facebook.png" height="30" alt="Facebook" style="font-family:Arial,sans-serif;font-weight:normal;font-size:14px;color:white" class="CToWUd">
+                </a>
+              </td>
+              <td colspan="1" style="vertical-align:middle;padding:24px 24px 0 24px" align="center">
+                <a href="http://links.ripleycorreos.cl/ctt?ms=NDYwNTY1ODAS1&amp;kn=6&amp;r=LTUwNTQxMDM4OTYS1&amp;b=0&amp;j=MjE2MDUzOTYzNwS2&amp;mt=1&amp;rt=0" style="text-decoration:none" name="m_2954060768881789278_www_instagram_com_ripleychile_" target="_blank" data-saferedirecturl="https://www.google.com/url?q=http://links.ripleycorreos.cl/ctt?ms%3DNDYwNTY1ODAS1%26kn%3D6%26r%3DLTUwNTQxMDM4OTYS1%26b%3D0%26j%3DMjE2MDUzOTYzNwS2%26mt%3D1%26rt%3D0&amp;source=gmail&amp;ust=1650046439588000&amp;usg=AOvVaw2sMNJsGJmFPYYhayqPZVZf">
+                <img src="https://ci5.googleusercontent.com/proxy/SzKV3whF7BxD2rt9axmuPQ9yqgyNF0nM4DObLTlk3jt7P3Z04xMnD3qPG2KoaSnV49qFHqUTZjA61Hyw-iRdsnoiBQ6hjaFseuX91RY=s0-d-e1-ft#https://home.ripley.cl/assets-mails-2020/img/instagram.png" width="30" alt="Instagram" style="font-family:Arial,sans-serif;font-weight:normal;font-size:14px;color:white;text-align:center" class="CToWUd">
+                </a>
+              </td>
+              <td colspan="1" style="vertical-align:middle;padding:24px 24px 0 24px" align="center">
+              <a href="http://links.ripleycorreos.cl/ctt?ms=NDYwNTY1ODAS1&amp;kn=1&amp;r=LTUwNTQxMDM4OTYS1&amp;b=0&amp;j=MjE2MDUzOTYzNwS2&amp;mt=1&amp;rt=0" style="text-decoration:none" name="m_2954060768881789278_www_youtube_com_user_ripleyspots" target="_blank" data-saferedirecturl="https://www.google.com/url?q=http://links.ripleycorreos.cl/ctt?ms%3DNDYwNTY1ODAS1%26kn%3D1%26r%3DLTUwNTQxMDM4OTYS1%26b%3D0%26j%3DMjE2MDUzOTYzNwS2%26mt%3D1%26rt%3D0&amp;source=gmail&amp;ust=1650046439588000&amp;usg=AOvVaw0Bj3Lt0T2poGGRMirIxANm">
+              <img src="https://ci4.googleusercontent.com/proxy/QUZCqDy2UHla_XbEAcEpv3ZgVKtomCcWUEeEz_xth0V-XUXkl6edysgrYM-FI12D3VhIZHuxm59NOPWv3rM2hvoVO5wptoiHjXku=s0-d-e1-ft#https://home.ripley.cl/assets-mails-2020/img/youtube.png" width="30" alt="Youtube" style="font-family:Arial,sans-serif;font-weight:normal;font-size:14px;color:white" class="CToWUd">
+              </a>
+            </td>
+          </tr>
+        </tbody></table>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+            </td></tr><tr>
+              <td align="center" style="padding:24px" bgcolor="#313131" colspan="5">
+                <span style="font-size:14px;color:#393838;font-family:'Barlow',Arial,sans-serif;color:#ffffff">
+                 
+                </span>
+              </td>
+            </tr>
+        
+      
+    </tbody></table>
+  </td>
+</tr>  
+</tbody></table>
+
+
+<img src="https://ci6.googleusercontent.com/proxy/dnahK1pQEyVzmoKAHyuEfCu6Aw8qi9D_0fb6SJQapQW2GXiJop4dScN7K3-XZEIsZQsWAP5BClWZAMmrqhdfbul2gsusU6po01Xz0jYBY_nUjhuCa105IgblUsnQyTMyH7lH=s0-d-e1-ft#http://open.mkt32.net/open/log/46056580/LTUwNTQxMDM4OTYS1/0/MjE2MDUzOTYzNwS2/1/0" style="display:none" class="CToWUd" jslog="138226; u014N:xr6bB; 53:W2ZhbHNlXQ.."></div>-->
